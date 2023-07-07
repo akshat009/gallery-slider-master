@@ -11,7 +11,7 @@ Gallery Slider Master is a WordPress plugin that allows you to create a slidesho
 
 ## Installation
 
-1. Download the latest version of the plugin from the [releases](https://github.com/your-username/gallery-slider-master/releases) page.
+1. Download the latest version of the plugin from the [releases](https://github.com/akshat009/gallery-slider-master/releases) page.
 2. In your WordPress admin panel, navigate to **Plugins → Add New**.
 3. Click on the **Upload Plugin** button and select the downloaded plugin ZIP file.
 4. Activate the plugin.

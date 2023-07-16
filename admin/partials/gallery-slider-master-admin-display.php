@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Provide a admin area view for the plugin
  *
@@ -14,3 +13,7 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<h2 class="slider-heading">Gallery Slider</h2>
+<input type="button" class="button" id="upload-button" value="Select Images">
+<input type="hidden" id="image-url" name="image_url">
+<div id="image-preview"></div>

@@ -144,61 +144,55 @@ class Gallery_Slider_Master_Admin {
 			wp_send_json_error( 'Image data not received' );
 		}
 	}
-	 /**
-     * Register the plugin settings.
-     */
-    public function register_settings() {
-        register_setting(
-            'gallery-slider-master-settings-group',                        // Option group
-            'gallery_slider_plugin_options',                               // Option name
-            array($this, 'sanitize_settings')                              // Sanitization callback
-        );
+	/**
+	 * * Register the plugin settings.
+	 * */
+	public function register_settings() {
+		register_setting(
+			'gallery-slider-master-settings-group',                        // Option group
+			'gallery_slider_plugin_options',                               // Option name
+			array($this, 'sanitize_settings')                              // Sanitization callback
+		);
+		add_settings_section(
+			'gallery-slider-general-section',                              // Section ID
+			__('', 'gallery-slider-master'),               // Section title
+			'',                                                            // Callback function (optional)
+			'gallery-slider-master-settings'                               // Settings page slug
+		);
+		add_settings_field(
+			'gallery-slider-images-field',                                 // Field ID
+			__('Slider Images', 'gallery-slider-master'),                  // Field label
+			array($this, 'render_images_field'),                           // Callback function
+			'gallery-slider-master-settings',                              // Settings page slug
+			'gallery-slider-general-section'                               // Section ID
+		);
+	}
 
-        add_settings_section(
-            'gallery-slider-general-section',                              // Section ID
-            __('', 'gallery-slider-master'),               // Section title
-            '',                                                            // Callback function (optional)
-            'gallery-slider-master-settings'                               // Settings page slug
-        );
-
-        add_settings_field(
-            'gallery-slider-images-field',                                 // Field ID
-            __('Slider Images', 'gallery-slider-master'),                  // Field label
-            array($this, 'render_images_field'),                           // Callback function
-            'gallery-slider-master-settings',                              // Settings page slug
-            'gallery-slider-general-section'                               // Section ID
-        );
-    }
-
-    /**
-     * Sanitize the plugin settings.
-     */
-    public function sanitize_settings($input) {
-        // Sanitize and validate the settings as needed
-        return $input;
-    }
-	 /**
-     * Render the images field.
-     */
-    public function render_images_field() {
-        $options = get_option('gallery_slider_plugin_options');
-        $image_ids = isset($options['slider_images']) ? $options['slider_images'] : array();
-
-        ?>
-        <div class="image-preview-container" id="image-preview">
-            <?php foreach ($image_ids as $image_id) : ?>
-                <?php $image_url = wp_get_attachment_image_url($image_id, 'thumbnail'); ?>
-                <?php if ($image_url) : ?>
-                    <div class="image-preview">
-                        <img src="<?php echo esc_url($image_url); ?>" alt="Slider Image" />
-                        <input type="hidden" name="gallery_slider_plugin_options[slider_images][]" value="<?php echo esc_attr($image_id); ?>" />
+	/**
+	 *  * Sanitize the plugin settings.
+	 *  */
+	public function sanitize_settings($input) {
+		return $input;
+	}
+	/**
+	 * * Render the images field.
+	 * */
+	public function render_images_field() {
+		$options = get_option('gallery_slider_plugin_options');
+		$image_ids = isset($options['slider_images']) ? $options['slider_images'] : array();?>
+		<div class="image-preview-container" id="image-preview">
+			<?php foreach ($image_ids as $image_id) : ?>
+				<?php $image_url = wp_get_attachment_image_url($image_id, 'thumbnail'); ?>
+				<?php if ($image_url) : ?>
+					<div class="image-preview">
+						<img src="<?php echo esc_url($image_url); ?>" alt="Slider Image" />
+						<input type="hidden" name="gallery_slider_plugin_options[slider_images][]" value="<?php echo esc_attr($image_id); ?>" />
 						<button class="delete-button" data-image-id="<?php echo esc_attr($image_id); ?>"> X </button>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </div>
-        <button id="upload-button" class="button">Upload Images</button>
-        <?php
-    }
-	
+					</div>
+					<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+				<button id="upload-button" class="button">Upload Images</button>
+				<?php
+				}
 }

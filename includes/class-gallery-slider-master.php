@@ -78,6 +78,7 @@ class Gallery_Slider_Master {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->define_common_hooks();
 
 	}
 
@@ -122,6 +123,12 @@ class Gallery_Slider_Master {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-gallery-slider-master-public.php';
 
+		/**
+		 * The class responsible for defining all actions that are common-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-gallery-slider-master-common.php';
+
 		$this->loader = new Gallery_Slider_Master_Loader();
 
 	}
@@ -159,9 +166,19 @@ class Gallery_Slider_Master {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'plugin_menu' );
 		$this->loader->add_action( 'wp_ajax_store_image_data', $plugin_admin, 'store_image_data' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
-
+		add_shortcode( 'myslideshow', array( $plugin_admin, 'gallery_slider_shortcode' ) );
 	}
-
+	/**
+	 * Register all of the hooks related to the admin area functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_common_hooks() {
+		$plugin_common = new Gallery_Slider_Master_Common( $this->get_plugin_name(), $this->get_version() );
+		add_shortcode( 'myslideshow', array( $plugin_common, 'gallery_slider_shortcode' ) );
+	}
 	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.

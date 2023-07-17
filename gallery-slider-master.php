@@ -38,6 +38,10 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'GALLERY_SLIDER_MASTER_VERSION', '1.0.0' );
 
 /**
+ * Define the variable for storing the path, used for including the files
+ */
+define( 'GALLERY_SLIDER_MASTER_PATH', plugin_dir_path( __FILE__ ) );
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-gallery-slider-master-activator.php
  */

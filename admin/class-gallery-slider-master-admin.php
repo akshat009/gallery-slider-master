@@ -122,29 +122,6 @@ class Gallery_Slider_Master_Admin {
 		include_once plugin_dir_path( __FILE__ ) . 'partials/gallery-slider-master-admin-display.php';
 	}
 	/**
-	 *
-	 * Ajax Function
-	 */
-	public function store_image_data() {
-		if ( isset( $_POST['image_order'] ) && isset( $_POST['image_urls'] ) ) {
-			$imageorder = isset( $_POST['image_order'] ) ? $_POST['image_order'] : '';
-			$imageurls  = isset( $_POST['image_urls'] ) ? $_POST['image_urls'] : '';
-			if ( is_array( $imageorder ) ) {
-				$imageorder = array_map( 'sanitize_text_field', $imageorder );
-				$imageorder = json_encode( $imageorder );
-			}
-			if ( is_array( $imageurls ) ) {
-				$imageurls = array_map( 'esc_url', $imageurls );
-				$imageurls = json_encode( $imageurls );
-			}
-			update_option( 'image_order', $imageorder );
-			update_option( 'image_urls', $imageurls );
-			wp_send_json_success( 'Image data stored successfully' );
-		} else {
-			wp_send_json_error( 'Image data not received' );
-		}
-	}
-	/**
 	 * * Register the plugin settings.
 	 * */
 	public function register_settings() {
@@ -169,11 +146,25 @@ class Gallery_Slider_Master_Admin {
 	}
 
 	/**
-	 *  * Sanitize the plugin settings.
-	 *  */
+	 *  
+	 * Sanitize the plugin settings.
+	 *  
+	 * 
+	 **/
 	public function sanitize_settings($input) {
+		// Retrieve the 'gallery-slider-images-field' from the input
+		$images_field = isset($input['gallery-slider-images-field']) ? $input['gallery-slider-images-field'] : array();
+	  
+		// Sanitize each image ID within the 'gallery-slider-images-field' individually
+		$sanitized_images_field = array_map('absint', $images_field);
+	  
+		// Update the sanitized field back into the main $input array
+		$input['gallery-slider-images-field'] = $sanitized_images_field;
+	  
+		// Return the sanitized input
 		return $input;
 	}
+	  
 	/**
 	 * * Render the images field.
 	 * */
@@ -194,5 +185,5 @@ class Gallery_Slider_Master_Admin {
 				</div>
 				<button id="upload-button" class="button">Upload Images</button>
 				<?php
-				}
+	}
 }

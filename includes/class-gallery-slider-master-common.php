@@ -60,8 +60,9 @@ class Gallery_Slider_Master_Common {
 	 */
 	public function gallery_slider_shortcode() {
 		ob_start();
-		wp_enqueue_script( 'slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_style( 'slick-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', '', $this->version, '' );
+		wp_enqueue_script( 'slick-js', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_style( 'slick-theme-css', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css', '', $this->version, '' );
+		wp_enqueue_style( 'slick-css', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', '', $this->version, '' );
 		include_once GALLERY_SLIDER_MASTER_PATH . 'public/partials/gallery-slider-master-public-display.php';
 		return ob_get_clean();
 	}

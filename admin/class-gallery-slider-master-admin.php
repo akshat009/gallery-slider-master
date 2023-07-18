@@ -94,11 +94,13 @@ class Gallery_Slider_Master_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_media();
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gallery-slider-master-admin.js', array( 'jquery' ), $this->version, false );
-		wp_localize_script( $this->plugin_name, 'ajaxurl', admin_url( 'admin-ajax.php' ) );
-
+		$screen = get_current_screen();
+		if ( $screen->id === 'settings_page_gallery-slider-master' ) {
+			wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_enqueue_media();
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gallery-slider-master-admin.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
+			wp_localize_script( $this->plugin_name, 'ajaxurl', admin_url( 'admin-ajax.php' ) );
+		}
 	}
 	/**
 	 * Register the Plugin Menu for the admin area.

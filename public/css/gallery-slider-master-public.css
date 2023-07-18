@@ -2,3 +2,49 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+ h2{
+    text-align:center;
+    padding: 20px;
+    text-transform: uppercase; 
+    }
+    b{ 
+    color: red;
+    }
+    /* Slider */
+    .slider:not(.slick-initialized){
+        display: none;
+    }
+    .slick-slide{
+        margin:0 10px;
+    }
+   
+    .slick-dots {
+      position: absolute;
+      bottom: 20px; /* Adjust the distance from the bottom as needed */
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+    
+    .slick-dots li {
+      display: inline-block;
+      margin: 0 5px; /* Adjust the spacing between dots as needed */
+    }
+    
+    .slick-dots li button {
+      font-size: 12px; /* Adjust the font size of the dots as needed */
+      color: #000; /* Adjust the color of the dots as needed */
+      background-color: #fff; /* Adjust the background color of the dots as needed */
+      border: none;
+      border-radius: 50%;
+      width: 10px; /* Adjust the width of the dots as needed */
+      height: 10px; /* Adjust the height of the dots as needed */
+      padding: 0;
+      cursor: pointer;
+    }
+    
+    .slick-dots li.slick-active button {
+      background-color: #000; /* Adjust the background color of the active dot as needed */
+      color: #fff; /* Adjust the color of the active dot as needed */
+    }
+    
